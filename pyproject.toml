@@ -1,0 +1,53 @@
+[tool.rye.scripts]
+fmt = "rye fmt"
+lint = "rye lint --fix"
+check = "pyright"
+test = "rye test"
+all = { chain = ["fmt", "lint", "check", "test"] }
+
+[project]
+name = "postmodern"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Your Name", email = "you@example.com" }
+]
+readme = "README.md"
+
+requires-python = "~= 3.12.2"
+
+dependencies = [
+    "pydantic~=2.8.2",
+]
+
+[project.scripts]
+"postmodern" = "postmodern.cli:main"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest~=8.2.2",
+    "pyright~=1.1.372",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["A", "E", "F", "I", "N", "T100"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["postmodern"]
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+strict = ["**/*.py"]
+
+[tool.pytest.ini_options]
+addopts = "--doctest-modules"
