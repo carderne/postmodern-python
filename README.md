@@ -1,6 +1,10 @@
 # postmodern-python
 A very simple template for productive Python.
 
+This is a companion to this blog post:
+
+https://rdrn.me/postmodern-python/
+
 ## Installation
 ```bash
 git clone git@github.com:carderne/postmodern-python.git
