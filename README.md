@@ -3,7 +3,7 @@ A very simple template for productive Python.
 
 This is a companion to this blog post:
 
-https://rdrn.me/postmodern-python/
+[Beyond Hypermodern: Python is easy now](https://rdrn.me/postmodern-python/)
 
 ## Installation
 ```bash

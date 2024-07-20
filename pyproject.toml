@@ -14,13 +14,17 @@ authors = [
 ]
 readme = "README.md"
 
-requires-python = "~= 3.12.2"
+# If you're building a public library, you'll want to be more lenient
+# with the Python versions you permit. If this is internal, then you
+# should use Python 3.12
+requires-python = "~= 3.12"
 
 dependencies = [
     "pydantic~=2.8.2",
 ]
 
 [project.scripts]
+# running `postmodern` will call this script
 "postmodern" = "postmodern.cli:main"
 
 [build-system]
@@ -35,13 +39,30 @@ dev-dependencies = [
 ]
 
 [tool.ruff]
+# if this is a library, enter the _minimum_ version you
+# want to support, otherwise do py312
 target-version = "py312"
 line-length = 120
 
 [tool.ruff.lint]
-select = ["A", "E", "F", "I", "N", "T100"]
+# you can see the looong list of rules here:
+# https://docs.astral.sh/ruff/rules/
+# here's a couple to start with
+select = [
+  "A",    # warn about shadowing built-ins
+  "E",    # style stuff, whitespaces
+  "F",    # important pyflakes lints
+  "I",    # import sorting
+  "N",    # naming
+  "T100", # breakpoints (probably don't want these in prod!)
+]
+# if you're feeling confident you can do:
+# select = ["ALL"]
+# and then manually ignore annoying ones:
+# ignore = [...]
 
 [tool.ruff.lint.isort]
+# so it knows to group first-party stuff last
 known-first-party = ["postmodern"]
 
 [tool.pyright]
