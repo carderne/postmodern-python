@@ -1,6 +1,10 @@
 # postmodern-python
 A very simple template for productive Python.
 
+This template pulls together most of the advice and ideas from this blog post, which explains the choices in more detail:
+
+[Beyond Hypermodern: Python is easy now](https://rdrn.me/postmodern-python/)
+
 It includes the following bits:
 - Rye for Python, virtual env, dependency management and script running
 - Ruff for formatting and linting (replaces isort, flake, isort etc)
@@ -12,9 +16,7 @@ It includes the following bits:
 - Some basic Python snippets to get you started
 - The rest of this README!
 
-This is a companion to this blog post:
 
-[Beyond Hypermodern: Python is easy now](https://rdrn.me/postmodern-python/)
 
 ## Installation
 ```bash
