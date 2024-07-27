@@ -1,6 +1,17 @@
 # postmodern-python
 A very simple template for productive Python.
 
+It includes the following bits:
+- Rye for Python, virtual env, dependency management and script running
+- Ruff for formatting and linting (replaces isort, flake, isort etc)
+- Pyright for type checking (set to strict mode, but do what makes you happy)
+- Pytest for tests
+- A Github Actions workflows for formatting/linting/checking/testing PRs/merges
+- Another for releasing to PyPI
+- A basic Dockerfile for running in a container
+- Some basic Python snippets to get you started
+- The rest of this README!
+
 This is a companion to this blog post:
 
 [Beyond Hypermodern: Python is easy now](https://rdrn.me/postmodern-python/)
