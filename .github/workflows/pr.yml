@@ -21,7 +21,7 @@ jobs:
         with:
           filters: |
             python:
-            - 'postmodern_python/**'
+            - '**/*.py'
             - 'pyproject.toml'
 
   test-python:
