@@ -16,16 +16,24 @@ It includes the following bits:
 - Some basic Python snippets to get you started
 - The rest of this README!
 
+## 🤔 How to use this template
+1. Hit the green `Use this template` button up on the right next to the stars
+2. Give your new repository a name and then clone it to your dev environment.
+3. Rename it:
+```bash
+./rename.sh your-cool-new-name
+```
+4. Run `rye sync`
+5. Have a look at the stuff below here, try out some commands and edit this README as you like!
 
-
-## Installation
+## 💾 Installation
 ```bash
 git clone git@github.com:carderne/postmodern-python.git
 cd postmodern-python
 pip install -e .
 ```
 
-## Usage
+## 🚀 Usage
 From the command line:
 ```bash
 python -m postmodern  # thanks to __main__.py
@@ -40,7 +48,7 @@ from postmodern import hello
 hello()
 ```
 
-## Development
+## 🧱 Development
 Using [Rye](https://rye.astral.sh/) for development (installation instructions at the link).
 
 Install Python and dependencies:
@@ -57,7 +65,26 @@ rye run fmt
         all   # runs all the above sequentially
 ```
 
-## CI/CD
+## 🦺 CI/CD
 This has Github Actions setup for Pull Requests and for Release to PyPI.
+1. The [pr.yml](.github/workflows/pr.yml) workflow will run on any new Pull Request.
+Change some code, open a PR and wait for teh green tick!
 
-It also has a Dockerfile.
+2. The [release.yml](.github/workflows/release.yml) is for releasing packages to PyPI.
+It is currently set up to to run only when you create a new [Release](https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository).
+But you can change that!
+
+### Docker
+It also has a Dockerfile that you can try out as follows:
+1. Build it
+```bash
+docker build --tag postmdoern-image .
+```
+
+2. Run it
+```bash
+docker run --rm -it postmodern-image
+
+# output
+# I dunno, start the server or something?
+```
