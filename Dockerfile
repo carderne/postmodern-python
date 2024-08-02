@@ -3,7 +3,7 @@ FROM python:3.12.2-slim-bookworm
 ENV PYTHONUNBUFFERED True
 WORKDIR /app
 
-COPY pyproject.toml requirements.lock ./
+COPY pyproject.toml requirements.lock README.md ./
 RUN sed -i '/^-e file:/d' requirements.lock
 RUN pip install . --constraint requirements.lock
 
