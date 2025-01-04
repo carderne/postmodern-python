@@ -1,12 +1,14 @@
 # postmodern-python
 A very simple template for productive Python.
 
+**Now with [uv](https://docs.astral.sh/uv/)!**
+
 This template pulls together most of the advice and ideas from this blog post, which explains the choices in more detail:
 
 [Beyond Hypermodern: Python is easy now](https://rdrn.me/postmodern-python/)
 
 It includes the following bits:
-- Rye for Python, virtual env, dependency management and script running
+- uv for Python, virtual env, dependency management and script running
 - Ruff for formatting and linting (replaces isort, flake, isort etc)
 - Pyright for type checking (set to strict mode, but do what makes you happy)
 - Pytest for tests
@@ -23,10 +25,10 @@ It includes the following bits:
 ```bash
 ./rename.sh your-cool-new-name
 ```
-4. Run `rye sync`
+4. Run `uv sync`
 5. Have a look at the stuff below here, try out some commands and edit this README as you like!
 
-## 💾 Installation
+## 💾 Installation (not development!)
 ```bash
 git clone git@github.com:carderne/postmodern-python.git
 cd postmodern-python
@@ -49,20 +51,23 @@ hello()
 ```
 
 ## 🧱 Development
-Using [Rye](https://rye.astral.sh/) for development (installation instructions at the link).
+Using [uv](https://docs.astral.sh/uv/) for development:
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
 Install Python and dependencies:
 ```bash
-rye sync
+uv sync
 ```
 
 Format, lint, typecheck etc:
 ```bash
-rye run fmt
-        lint
-        check
-        test
-        all   # runs all the above sequentially
+uv run poe fmt
+           lint
+           check
+           test
+           all   # runs all the above sequentially
 ```
 
 ## 🦺 CI/CD
@@ -78,7 +83,7 @@ But you can change that!
 It also has a Dockerfile that you can try out as follows:
 1. Build it
 ```bash
-docker build --tag postmdoern-image .
+docker build --tag postmodern-image .
 ```
 
 2. Run it
