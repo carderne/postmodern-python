@@ -1,48 +1,54 @@
-[tool.rye.scripts]
-fmt = "rye fmt"
-lint = "rye lint --fix"
+[tool.poe.tasks]
+# run with eg `uv run poe fmt`
+fmt = "ruff format"
+lint = "ruff check --fix"
 check = "pyright"
-test = "rye test"
-all = { chain = ["fmt", "lint", "check", "test"] }
+test = "pytest"
+# run all the above
+all = [ {ref="fmt"}, {ref="lint"}, {ref="check"}, {ref="test"} ]
+
+"ci:fmt" = "ruff format --check"  # fail if not formatted
+"ci:lint" = "ruff check"
 
 [project]
 name = "postmodern"
 version = "0.1.0"
 description = "Add your description here"
+readme = "README.md"
 authors = [
     { name = "Your Name", email = "you@example.com" }
 ]
-readme = "README.md"
 
-# If you're building a public library, you'll want to be more lenient
-# with the Python versions you permit. If this is internal, then you
-# should use Python 3.12
-requires-python = "~= 3.12"
-
+# Public libraries should be more lenient
+# Internal stuff should enforce ~=3.13!
+requires-python = ">=3.11"
 dependencies = [
-    "pydantic~=2.8.2",
+    "pydantic>=2.10.4",
 ]
 
-[project.scripts]
-# running `postmodern` will call this script
-"postmodern" = "postmodern.cli:main"
-
-[build-system]
-requires = ["pdm-backend"]
-build-backend = "pdm.backend"
-
-[tool.rye]
-managed = true
-dev-dependencies = [
-    "pytest~=8.2.2",
-    "pyright~=1.1.372",
+[dependency-groups]
+dev = [
+    "poethepoet>=0.32.0",
+    "pyright>=1.1.391",
+    "pytest>=8.3.4",
+    "ruff>=0.8.5",
 ]
+
+[tool.uv]
+# tell uv we're building a package
+# (i.e. something we can distribute for others to use)
+# uncomment this to use project.scripts
+# package = true
+
+# [project.scripts]
+# running `postmodern` will run the `postmodern.main` function
+# postmodern = "postmodern.hello:main"
 
 [tool.ruff]
 # if this is a library, enter the _minimum_ version you
-# want to support, otherwise do py312
-target-version = "py312"
-line-length = 120
+# want to support, otherwise do py313
+target-version = "py313"
+line-length = 120  # use whatever number makes you happy
 
 [tool.ruff.lint]
 # you can see the looong list of rules here:
@@ -66,9 +72,10 @@ select = [
 known-first-party = ["postmodern"]
 
 [tool.pyright]
-venvPath = "."
-venv = ".venv"
-strict = ["**/*.py"]
+venvPath = "."          # uv installs the venv in the current dir
+venv = ".venv"          #       in a folder called `.venv`
+strict = ["**/*.py"]    # use 'strict' checking on all files
+pythonVersion = "3.13"  # if library, specify the _lowest_ you support
 
 [tool.pytest.ini_options]
 addopts = "--doctest-modules"
