@@ -14,10 +14,8 @@ jobs:
         with:
           version: "0.5.14"
           python-version: ${{ matrix.python-version }}
-      - run: |                     # abort if the lockfile changes
-          uv sync --all-extras --dev
-          [[ -n $(git diff --stat requirements.lock) ]] && exit 1
-      - run: uv run poe ci:fmt      # check formatting is correct
-      - run: uv run poe ci:lint     # and linting
-      - run: uv run poe check       # typecheck too
-      - run: uv run poe test        # then run your tests!
+      - run: uv sync --all-extras --locked # abort if the lockfile changes
+      - run: uv run poe ci:fmt             # check formatting is correct
+      - run: uv run poe ci:lint            # and linting
+      - run: uv run poe check              # typecheck too
+      - run: uv run poe test               # then run your tests!
