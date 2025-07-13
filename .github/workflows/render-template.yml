@@ -1,0 +1,64 @@
+name: Render Copier Template
+
+on:
+  push:
+    branches:
+      - template
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: Checkout template branch
+        uses: actions/checkout@v4
+        with:
+          ref: template
+          path: template
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install uv
+        run: pip install uv
+        working-directory: ${{ github.workspace }}/template
+
+        # comment
+      - name: Render template
+        run: |
+          cd ${{ github.workspace }}/template
+          uvx copier copy \
+            --overwrite \
+            --defaults \
+            -d description="Add your description here" \
+            -d include_dockerfile=true \
+            -d module_name=postmodern \
+            -d project_name=postmodern-python \
+            -d python_version=3.13 \
+            -d user_email=you@example.com \
+            -d user_name="Your Name" \
+            . ../main/
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and Push Changes
+        run: |
+          cd ${{ github.workspace }}/main
+          rm -f .copier-answers.yml
+          git add .
+          if ! git diff --cached --exit-code; then
+            git commit -m "Auto-render main template: ${{ github.event.head_commit.message }}"
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi

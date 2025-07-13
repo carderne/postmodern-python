@@ -1,5 +1,5 @@
 # --- Base Stage: Install Dependencies ---
-FROM python:3.13.1-slim-bookworm AS base
+FROM python:{{python_version}}-slim-bookworm AS base
 
 ENV PYTHONUNBUFFERED=True
 WORKDIR /app
@@ -14,7 +14,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen
 
 # --- Final Stage: Build Application Image ---
-FROM python:3.13.1-slim-bookworm AS runner
+FROM python:{{python_version}}-slim-bookworm AS runner
 
 WORKDIR /app
 
@@ -25,4 +25,4 @@ COPY --from=base /app/.venv ./.venv
 COPY . /app
 
 # Set the entrypoint
-CMD ["/app/.venv/bin/python", "/app/postmodern/server.py"]
+CMD ["/app/.venv/bin/python", "/app/{{module_name}}/server.py"]

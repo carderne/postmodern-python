@@ -11,17 +11,17 @@ all = [ {ref="fmt"}, {ref="lint"}, {ref="check"}, {ref="test"} ]
 "ci:lint" = "ruff check"
 
 [project]
-name = "postmodern"
+name = "{{module_name}}"
 version = "0.1.0"
-description = "Add your description here"
+description = "{{description}}"
 readme = "README.md"
 authors = [
-    { name = "Your Name", email = "you@example.com" }
+    { name = "{{ user_name | title }}", email = "{{ user_email }}" }
 ]
 
 # Public libraries should be more lenient
 # Internal stuff should enforce ~=3.13!
-requires-python = ">=3.11"
+requires-python = ">={{python_version}}"
 dependencies = [
     "pydantic>=2.10.4",
 ]
@@ -69,7 +69,7 @@ select = [
 
 [tool.ruff.lint.isort]
 # so it knows to group first-party stuff last
-known-first-party = ["postmodern"]
+known-first-party = ["{{ module_name }}"]
 
 [tool.pyright]
 venvPath = "."          # uv installs the venv in the current dir
