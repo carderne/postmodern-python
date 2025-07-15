@@ -54,7 +54,7 @@ include_dockerfile:
   help: "Include a Dockerfile in the project?"
   default: yes
 
-_src_path: project_template
-_exlude:
+_exclude:
   - .venv/
   - .git/
+  - .github/workflows/render-template.yml
