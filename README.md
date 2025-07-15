@@ -19,6 +19,9 @@ It includes the following bits:
 - The rest of this README!
 
 ## 🤔 How to use this template
+This template can be used in two ways:
+
+### As a GitHub Template
 1. Hit the green `Use this template` button up on the right next to the stars
 2. Give your new repository a name and then clone it to your dev environment.
 3. Rename it:
@@ -27,6 +30,14 @@ It includes the following bits:
 ```
 4. Run `uv sync`
 5. Have a look at the stuff below here, try out some commands and edit this README as you like!
+
+### As a Copier Template
+Alternatively, you can use [Copier](https://copier.readthedocs.io/) to generate a new project from this template.
+This is the recommended approach as it allows you to configure the project with your details.
+
+```bash
+uxv copier copy -r template https://github.com/carderne/postmodern-python <my_project>
+```
 
 ## 💾 Installation (not development!)
 ```bash
