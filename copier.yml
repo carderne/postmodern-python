@@ -1,0 +1,60 @@
+---
+
+project_name:
+  type: str
+  help: Give your project an amazing name
+  
+module_name:
+  type: str
+  help: Give the module a name
+  default: "{{ project_name }}"
+
+description:
+  type: str
+  help: Make a short description for the project (optional).
+  default: ""
+  
+user_name:
+  type: str
+  help: Set your full name
+  
+user_email:
+  type: str
+  help: Set your email
+  
+python_version:
+  type: str
+  help: What python version do you want to use? (optional)
+  default: 3.13
+  validators:
+    - >-
+      {{
+        (
+          value.isdigit() # X format
+          or (
+            value.replace('.', '').isdigit() and
+            value.count('.') == 1 and
+            (value.split('.') | length) == 2 and
+            value.split('.')[0].isdigit() and
+            value.split('.')[1].isdigit()
+          ) # X.Y format
+          or (
+            value.replace('.', '').isdigit() and
+            value.count('.') == 2 and
+            (value.split('.') | length) == 3 and
+            value.split('.')[0].isdigit() and
+            value.split('.')[1].isdigit() and
+            value.split('.')[2].isdigit()
+          ) # X.Y.Z format
+        )
+        or 'Version must be in X, X.Y, or X.Y.Z format (e.g., 3, 3.13, or 3.13.4) with numbers only, no <, >, =, or other characters.'
+      }}
+include_dockerfile:
+  type: bool
+  help: "Include a Dockerfile in the project?"
+  default: yes
+
+_exclude:
+  - .venv/
+  - .git/
+  - .github/workflows/render-template.yml

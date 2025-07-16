@@ -21,7 +21,7 @@ authors = [
 
 # Public libraries should be more lenient
 # Internal stuff should enforce ~=3.13!
-requires-python = ">=3.11"
+requires-python = ">=3.13"
 dependencies = [
     "pydantic>=2.10.4",
 ]

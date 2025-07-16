@@ -1,5 +1,5 @@
 # --- Base Stage: Install Dependencies ---
-FROM python:3.13.1-slim-bookworm AS base
+FROM python:3.13-slim-bookworm AS base
 
 ENV PYTHONUNBUFFERED=True
 WORKDIR /app
@@ -14,7 +14,7 @@ COPY pyproject.toml uv.lock ./
 RUN uv sync --frozen
 
 # --- Final Stage: Build Application Image ---
-FROM python:3.13.1-slim-bookworm AS runner
+FROM python:3.13-slim-bookworm AS runner
 
 WORKDIR /app
 
