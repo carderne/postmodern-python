@@ -8,12 +8,16 @@ on:
 jobs:
   render:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Add this to allow pushing
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
           ref: main
           path: main
+          token: ${{ secrets.GITHUB_TOKEN }}  # Explicit token
+
 
       - name: Checkout template branch
         uses: actions/checkout@v4
