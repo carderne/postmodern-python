@@ -54,6 +54,8 @@ include_dockerfile:
   help: "Include a Dockerfile in the project?"
   default: yes
 
+_subdirectory: template
+  
 _exclude:
   - .venv/
   - .git/
