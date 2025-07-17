@@ -1,0 +1,51 @@
+name: Test Template on PR
+
+on:
+  pull_request:
+    branches:
+      - template
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          path: template
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          working-directory: ${{ github.workspace }}/template
+          version: "latest"
+
+        # comment
+      - name: Render template
+        run: |
+          mkdir ${{ github.workspace }}/rendered-project
+          cd ${{ github.workspace }}/template
+          uvx copier copy \
+            --overwrite \
+            --defaults \
+            -d description="Add your description here" \
+            -d include_dockerfile=true \
+            -d module_name=postmodern \
+            -d project_name=postmodern-python \
+            -d python_version=3.13 \
+            -d user_email=you@example.com \
+            -d user_name="Your Name" \
+            . ../rendered-project/
+
+      - name: Test rendered project
+        working-directory: ${{ github.workspace }}/rendered-project
+        run: |
+          uv sync --all-extras --locked
+          uv run poe ci:fmt
+          uv run poe ci:lint
+          uv run poe check
+          uv run poe test
