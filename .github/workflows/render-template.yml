@@ -30,9 +30,10 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Install uv
-        run: pip install uv
-        working-directory: ${{ github.workspace }}/template
+      - uses: astral-sh/setup-uv@v6
+        with:
+          working-directory: ${{ github.workspace }}/template
+          version: "latest"
 
         # comment
       - name: Render template
@@ -49,6 +50,15 @@ jobs:
             -d user_email=you@example.com \
             -d user_name="Your Name" \
             . ../main/
+
+      - name: Test rendered project
+        working-directory: ${{ github.workspace }}/main
+        run: |
+          uv sync --all-extras --locked
+          uv run poe ci:fmt
+          uv run poe ci:lint
+          uv run poe check
+          uv run poe test
 
       - name: Configure Git
         run: |
