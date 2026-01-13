@@ -11,7 +11,7 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 COPY pyproject.toml uv.lock ./
 
 # Install dependencies using uv
-RUN uv sync --frozen
+RUN uv sync --dev-only --frozen
 
 # --- Final Stage: Build Application Image ---
 FROM python:3.13-slim-bookworm AS runner
@@ -25,4 +25,4 @@ COPY --from=base /app/.venv ./.venv
 COPY . /app
 
 # Set the entrypoint
-CMD ["python", "/app/postmodern/server.py"]
+CMD ["/app/.venv/bin/python", "/app/postmodern/server.py"]
