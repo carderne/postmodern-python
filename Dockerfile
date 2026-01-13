@@ -25,4 +25,4 @@ COPY --from=base /app/.venv ./.venv
 COPY . /app
 
 # Set the entrypoint
-CMD ["/app/.venv/bin/python", "/app/postmodern/server.py"]
+CMD ["python", "/app/postmodern/server.py"]
